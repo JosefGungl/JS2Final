@@ -1,0 +1,16 @@
+@forward 'variables';
+@import 'bootstrap/scss/bootstrap';
+
+
+.navbar {
+  /*TODO: darken image to see nav better*/
+  background-image: url("../dumbbell-banner.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  height: 150px;
+}
+
+.nav-item {
+  font-size: 25px;
+}

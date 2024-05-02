@@ -1,0 +1,43 @@
+<script>
+import Navbar from "@/components/navbar.vue";
+
+export default {
+  name: "AboutPage",
+  components: {Navbar}
+}
+</script>
+
+<template>
+  <navbar></navbar>
+  <h1>About Us</h1>
+
+  <p>1111 Madison Ave, Hwy 12 <br>Fort Atkinson, Wisconsin 53538 </p>
+  <p>Phone: (920)-563-5613</p>
+  <p>Email: blackhawkfitness@charter.net</p>
+  <p>Instagram: <a href="https://www.instagram.com/blackhawkfitness/">@blackhawkfitness</a></p>
+  <p>Facebook: <a href="https://www.facebook.com/BlackHawkFitnessClub/">Blackhawk Fitness</a></p>
+  <br>
+  <h3>Current Staffed Hours:</h3>
+  <ul>
+    <li>Monday: 8am - 12pm</li>
+    <li>Tuesday: 4pm - 8pm</li>
+    <li>Wednesday: 8am - 12pm</li>
+    <li>Thursday: 4pm - 8pm</li>
+    <li>Friday: 8am - 12pm</li>
+    <li>Saturday: 10am - 2pm</li>
+    <li>Sunday: none</li>
+  </ul>
+  <br>
+  <p>*If you would like to sign up for membership but are not able to come in during our scheduled staffed hours,
+    please send us an email; we are happy to make an appointment during a time that works for you.</p>
+
+</template>
+
+<style scoped>
+a{
+  color: blue;
+}
+a:active{
+  color: blue;
+}
+</style>

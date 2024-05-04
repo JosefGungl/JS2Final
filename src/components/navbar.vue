@@ -1,7 +1,22 @@
-<script>
-export default {
-  name: "navbar"
-}
+<script setup>
+import { onMounted, ref } from "vue";
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+
+const loggedIn = ref(false);
+
+let auth;
+onMounted(() => {
+  auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      loggedIn.value = true;
+    } else {
+      loggedIn.value = false;
+    }
+  });
+})
+
+
 </script>
 
 <template>
@@ -33,7 +48,8 @@ export default {
           </li>
 
           <li class="nav-item">
-            <a class="nav-link active"><router-link style="color: white;" to="/account">Account</router-link></a>
+            <a v-if="loggedIn === false" class="nav-link active"><router-link style="color: white;" to="/LogIn">Login/SignUp</router-link></a>
+            <a v-if="loggedIn === true" class="nav-link active"><router-link style="color: white;" to="/account">Account</router-link></a>
           </li>
 
         </ul>
@@ -42,7 +58,7 @@ export default {
   </nav>
 </template>
 
-<style>
+<style scoped>
 a {
   color: white;
   text-decoration: none;

@@ -4,8 +4,7 @@ function User(firebaseUser){
         photoURL: '',
         age: '',
         points: '',
-        badges: [],
-        streaks:[],
+        dailyStreak: 0,
         uid: '',
     }
 
@@ -14,8 +13,7 @@ function User(firebaseUser){
         m.photoURL = firebaseUser.photoURL ? firebaseUser.photoURL : '';
         m.age = firebaseUser.age ? firebaseUser.age : '';
         m.points = firebaseUser.points ? firebaseUser.points : '';
-        m.badges = firebaseUser.badges ? firebaseUser.badges : '';
-        m.streaks = firebaseUser.streaks ? firebaseUser.streaks : '';
+        m.dailyStreak = firebaseUser.dailyStreak ? firebaseUser.dailyStreak : '';
         m.uid = firebaseUser.uid ? firebaseUser.uid : '';
     }
     return m;

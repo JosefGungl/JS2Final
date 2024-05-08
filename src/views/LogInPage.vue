@@ -24,10 +24,13 @@ const logIn = () => {
             errMsg.value = "Invalid email";
             break;
           case "auth/user-not-found":
-            errMsg.value = "No account with this email were found";
+            errMsg.value = "No account with this email was found";
             break;
           case "auth/wrong-password":
             errMsg.value = "Invalid password";
+            break;
+          case "auth/invalid-credential":
+            errMsg.value = "Invalid email or password";
             break;
         }
       })
@@ -55,15 +58,15 @@ const signInWithGoogle = () => {
     <h1>Log In</h1>
     <div><input type="email" placeholder="Email" v-model="email"/></div>
     <div><input type="password" placeholder="Password" v-model="password"/></div>
+    <p v-if="errMsg">{{ errMsg }}</p>
     <div>
       <button @click="logIn">Log in</button>
     </div>
     <div>
       <button @click="signInWithGoogle">Log in using Google</button>
     </div>
-    <p v-if="errMsg">{{ errMsg }}</p>
     <div>
-      Already have an account? Click
+      Don't have an account yet? Click
       <RouterLink to="/signup">here</RouterLink>
     </div>
   </div>

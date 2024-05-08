@@ -23,7 +23,7 @@ onMounted(() => {
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
-        <RouterLink to="/home"><img src="../assets/bhf-logo.png" alt=""></RouterLink>
+        <RouterLink to="/"><img src="../assets/bhf-logo.png" alt=""></RouterLink>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -32,7 +32,7 @@ onMounted(() => {
         <ul class="navbar-nav">
 
           <li class="nav-item">
-            <a class="nav-link active" href="#"><RouterLink to="/home">Home</RouterLink></a>
+            <a class="nav-link active" href="#"><RouterLink to="/">Home</RouterLink></a>
           </li>
 
           <li class="nav-item">

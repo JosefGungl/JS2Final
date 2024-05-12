@@ -8,6 +8,7 @@ import {db} from "@/main.js";
 import AccountInfo from "@/components/accountInfo.vue";
 import moment from "moment";
 import GoalsModal from "@/components/goalsModal.vue";
+import Leaderboard from "@/components/leaderboard.vue";
 
 const router = useRouter();
 const loggedIn = ref(false);
@@ -15,6 +16,7 @@ const loggedIn = ref(false);
 let user = ref();
 let auth;
 let docRef;
+
 onMounted(async () => {
   auth = getAuth();
   docRef = doc(db, 'users', auth.currentUser.uid);
@@ -93,7 +95,13 @@ const handleCheckIn = async () => {
                 @handleEditProfile="handleEditProfile"
                 @handleCheckIn="handleCheckIn"
   ></account-info>
+  <div class="row p-5 justify-content-center ">
+    <div class="col col-auto">
+      <button class="btn btn-primary" data-bs-target="#leaderboardModal" data-bs-toggle="modal">View Leaderboard</button>
+    </div>
+  </div>
   <goals-modal v-if="user" :user="user"></goals-modal>
+  <leaderboard v-if="user" :user="user"></leaderboard>
 </template>
 
 <style scoped>

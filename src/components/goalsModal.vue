@@ -35,7 +35,6 @@ onMounted(async () => {
       progress.push(i);
     }
   }
-
 })
 
 
@@ -50,7 +49,9 @@ const addEntry = async (newEntry) => {
   await updateDoc(docRef, {
     //TODO: add list of objects here
     goalsAndProgress: list,
+
   });
+  console.log('updated')
 }
 
 

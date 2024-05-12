@@ -44,12 +44,11 @@ defineEmits([
       <div class="col col-3 text-end">
         <button class="btn btn-primary" @click="$emit('handleCheckIn')">Check-in</button>
         <p></p>
-<!--        todo: add goals modal-->
         <button class="btn btn-primary" data-bs-target="#goalsModal" data-bs-toggle="modal">Goals and Progress</button>
       </div>
     </div>
     <div class="row border">
-      <div class="col">
+      <div class="col text-center">
         <h2>Badges</h2>
         <div class="row">
 <!--          TODO: Add badges cards here-->
@@ -60,7 +59,7 @@ defineEmits([
           </div>
         </div>
       </div>
-      <div class="col">
+      <div class="col text-center">
         <h2>Streaks</h2>
         <div class="row">
 <!--          TODO: Add streaks cards here-->

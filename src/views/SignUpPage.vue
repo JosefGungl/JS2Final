@@ -36,21 +36,7 @@ const signUp = () => {
         alert(error.message);
       })
 };
-const signInWithGoogle = () => {
-  const auth = getAuth()
-  const provider = new GoogleAuthProvider();
-  signInWithPopup(auth, provider)
-      .then((result) => {
-        // setDoc(doc(db, 'users', result.user.uid),);
-        console.log(result.user);
-        router.push('/account');
-      })
-      .catch((error) => {
-        console.error(error => {
-          console.log(error.code);
-        })
-      })
-};
+
 </script>
 
 <template>
@@ -65,9 +51,6 @@ const signInWithGoogle = () => {
     <div><input type="text" placeholder="Last Name" v-model="lName"/></div>
     <div>
       <button @click="signUp">Sign up</button>
-    </div>
-    <div>
-      <button @click="signInWithGoogle">Sign in using Google</button>
     </div>
     <div>
       Already have an account? Click

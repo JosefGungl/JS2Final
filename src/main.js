@@ -1,6 +1,6 @@
 import 'bootstrap/dist/js/bootstrap.js'
 import '@/assets/scss/app.scss'
-import connectionKey from '@/firebase/_firebaseConnection.js'
+import firebaseKey from '@/connections/_firebaseConnection.js'
 import { getFirestore } from 'firebase/firestore'
 
 import { createApp } from 'vue'
@@ -8,8 +8,9 @@ import App from './App.vue'
 import router from './router'
 import { initializeApp } from 'firebase/app'
 
-//firebase connection
-const firebaseConfig = connectionKey()
+
+//connections connection
+const firebaseConfig = firebaseKey()
 
 const fApp = initializeApp(firebaseConfig)
 

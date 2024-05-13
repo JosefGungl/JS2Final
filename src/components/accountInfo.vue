@@ -3,9 +3,10 @@
 defineProps(['user']);
 defineEmits([
     'handleSignOut',
-    'handleEditProfile',
+    'startProfileEdit',
     'handleCheckIn',
 ])
+
 
 </script>
 
@@ -14,18 +15,17 @@ defineEmits([
   <div class="container">
     <h1>Hello, {{ user.displayName }}</h1>
     <div class="row">
-      <div class="col col-auto photoCol">
-        <div class="col photoBorder border rounded-circle border-5">
+      <div class="col container col-auto photoCol">
+        <div class="container col photoBorder border rounded-circle border-5">
           <img class="border userPhoto rounded-circle" v-if="user.photoURL" :src=user.photoURL alt="User Photo">
         </div>
         <div class="row">
-<!--          TODO: add functionality to edit profile button-->
           <div class="row row-cols-2 p-3 text-center" style="position: relative; left: 28px;">
             <div class="col col-auto">
-              <button type="button" class="btn btn-primary" @click="$emit('handleSignOut')"> Sign Out </button>
+              <button type="button" class="btn btn-secondary" @click="$emit('handleSignOut')"> Sign Out </button>
             </div>
             <div class="col col-auto">
-              <button type="button" class="btn btn-primary" @click="$emit('handleEditProfile')">Edit Profile</button>
+              <button type="button" class="btn btn-secondary" @click="$emit('startProfileEdit')">Edit Profile</button>
             </div>
           </div>
         </div>
@@ -39,6 +39,7 @@ defineEmits([
         </div>
         <div class="row h-25 align-content-center">
           <h5 v-if="user.points">Account Points: {{user.points}}</h5>
+          <h5 v-else>Account Points: 0</h5>
         </div>
       </div>
       <div class="col col-3 text-end">
@@ -72,20 +73,5 @@ defineEmits([
 </template>
 
 <style scoped>
-.photoBorder {
-  height: 265px;
-  width: 265px;
-  border-color: grey;
-}
 
-.userPhoto {
-  max-height: 250px;
-  position: relative;
-  top: 2.5px;
-  left: 2.5px;
-}
-
-.badgeImg {
-  object-fit: contain;
-}
 </style>

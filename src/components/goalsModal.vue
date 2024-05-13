@@ -28,10 +28,11 @@ onMounted(async () => {
     console.log("No document exists");
   }
 
-  for (let i in user.value.goalsAndProgress){
+  for (let i in user.goalsAndProgress){
     if (i.type === "goal") {
       goals.push(i);
-    }else if (i.type === "progress") {
+    }
+    if (i.type === "progress") {
       progress.push(i);
     }
   }

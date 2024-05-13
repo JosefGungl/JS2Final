@@ -1,26 +1,8 @@
 <script setup>
-import {onMounted} from "vue";
-import {collection, getDocs, limit, query} from "firebase/firestore";
-import {db} from "@/main.js";
 import LeaderboardUser from "@/components/leaderboardUser.vue";
+let props = defineProps(['leaderboardUsers']);
 
-let p = defineProps(['user'])
-
-let users = []
-
-onMounted(async () => {
-  users = [];
-  query(collection(db, "users"), limit(3))
-    .onSnapshot(snapshot => {
-      snapshot.forEach((user) => {
-        users.push({
-          user: user.data().displayName,
-          points: user.data().points,
-          streak: user.data().dailyStreak,
-        });
-      })
-    });
-});
+console.log(props.leaderboardUsers)
 </script>
 
 <template>
@@ -33,8 +15,12 @@ onMounted(async () => {
           <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div v-if="users">
-            <leaderboard-user v-for="user in users" :key="users" :currentUser="p.user" :user="user"></leaderboard-user>
+          <div class="row row-cols-2">
+            <div class="col">Name</div>
+            <div class="col">Points</div>
+          </div>
+          <div v-for="user in leaderboardUsers">
+            <leaderboard-user :user="user"></leaderboard-user>
           </div>
         </div>
         <div class="modal-footer">
@@ -43,6 +29,7 @@ onMounted(async () => {
       </div>
     </div>
   </div>
+
 
 </template>
 

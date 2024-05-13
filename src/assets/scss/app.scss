@@ -1,9 +1,11 @@
-@forward 'variables';
+@import 'variables';
 @import 'bootstrap/scss/bootstrap';
+
+$btn-primary: $primary;
+$btn-secondary: $secondary;
 
 
 .navbar {
-  /*TODO: darken image to see nav better*/
   background-image: url("../dumbbell-banner.png");
   background-repeat: no-repeat;
   background-size: cover;
@@ -11,6 +13,34 @@
   height: 150px;
 }
 
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.navbar-toggler {
+  border-color: white;
+  background-color: white;
+}
+
 .nav-item {
   font-size: 25px;
+}
+
+.photoBorder {
+  height: 265px;
+  width: 265px;
+  border-color: grey;
+}
+
+.userPhoto {
+  position: relative;
+  height: 250px;
+  width: 250px;
+  top: 2.5px;
+  right: 9px;
+}
+
+.badgeImg {
+  object-fit: contain;
 }

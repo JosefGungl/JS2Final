@@ -35,39 +35,21 @@ const logIn = () => {
         }
       })
 };
-const signInWithGoogle = () => {
-  const provider = new GoogleAuthProvider();
-  signInWithPopup(getAuth(), provider)
-      .then((result) => {
-        console.log(result.user);
-        router.push('/account');
-      })
-      .catch((error) => {
-        console.error(error => {
-          console.log(error.code);
-        })
-      })
-};
 
 </script>
 
 <template>
   <navbar></navbar>
-
-  <div>
-    <h1>Log In</h1>
-    <div><input type="email" placeholder="Email" v-model="email"/></div>
-    <div><input type="password" placeholder="Password" v-model="password"/></div>
-    <p v-if="errMsg">{{ errMsg }}</p>
-    <div>
-      <button @click="logIn">Log in</button>
-    </div>
-    <div>
-      <button @click="signInWithGoogle">Log in using Google</button>
-    </div>
-    <div>
-      Don't have an account yet? Click
-      <RouterLink to="/signup">here</RouterLink>
+  <h1 class="text-center">Log In</h1>
+  <div class="row justify-content-center text-center">
+    <div class="col col-5 text-center">
+      <div class="row"><input class="form-control " type="email" placeholder="Email" v-model="email"/></div>
+      <div class="row "><input class="form-control gy-2" type="password" placeholder="Password" v-model="password"/></div>
+      <div class="row"><p v-if="errMsg">{{ errMsg }}</p></div>
+      <div class="row"><button class="btn btn-primary gy-2" @click="logIn">Log in</button></div>
+      <div class="row justify-content-center">Don't have an account yet?
+        <RouterLink to="/signup">Click here</RouterLink>
+      </div>
     </div>
   </div>
 
@@ -75,5 +57,7 @@ const signInWithGoogle = () => {
 </template>
 
 <style scoped>
-
+a, a:hover{
+  color: blue;
+}
 </style>

@@ -48,8 +48,8 @@ onMounted(() => {
           </li>
 
           <li class="nav-item">
-            <a v-if="loggedIn === false" class="nav-link active"><router-link style="color: white;" to="/LogIn">Login/SignUp</router-link></a>
-            <a v-if="loggedIn === true" class="nav-link active"><router-link style="color: white;" to="/account">Account</router-link></a>
+            <a v-if="loggedIn === false" class="nav-link active"><router-link to="/LogIn">Login/SignUp</router-link></a>
+            <a v-if="loggedIn === true" class="nav-link active"><router-link to="/account">Account</router-link></a>
           </li>
 
         </ul>
@@ -59,12 +59,5 @@ onMounted(() => {
 </template>
 
 <style scoped>
-a {
-  color: white;
-  text-decoration: none;
-}
-.navbar-toggler {
-  border-color: white;
-  background-color: white;
-}
+
 </style>

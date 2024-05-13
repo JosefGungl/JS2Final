@@ -1,14 +1,14 @@
 <script setup>
 import Navbar from "@/components/navbar.vue";
-import {onMounted, ref} from "vue";
+import { onMounted, ref } from "vue";
 import {getAuth, onAuthStateChanged, signOut} from "firebase/auth";
 import {useRouter} from "vue-router";
-import {doc, getDoc, onSnapshot, updateDoc, Timestamp} from 'firebase/firestore';
+import {doc, getDoc, onSnapshot, updateDoc, query, collection, limit, getDocs} from 'firebase/firestore';
 import {db} from "@/main.js";
 import AccountInfo from "@/components/accountInfo.vue";
-import moment from "moment";
 import GoalsModal from "@/components/goalsModal.vue";
 import Leaderboard from "@/components/leaderboard.vue";
+import EditAccountInfo from "@/components/editAccountInfo.vue";
 
 const router = useRouter();
 const loggedIn = ref(false);
@@ -16,10 +16,15 @@ const loggedIn = ref(false);
 let user = ref();
 let auth;
 let docRef;
+let leaderboardUsers = [];
+let action = ref('view')
+let uid;
+
 
 onMounted(async () => {
   auth = getAuth();
-  docRef = doc(db, 'users', auth.currentUser.uid);
+  uid = auth.currentUser.uid;
+  docRef = doc(db, 'users', uid);
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
     onSnapshot(docRef, (doc) => {
@@ -28,7 +33,12 @@ onMounted(async () => {
   } else {
     console.log("No document exists");
   }
-
+  //leaderboard
+  const querySnapshot = await getDocs(query(collection(db, "users"), limit(3)));
+  querySnapshot.forEach((doc) => {
+    leaderboardUsers.push({...doc.data()});
+  })
+  console.log(leaderboardUsers)
   onAuthStateChanged(auth, (user) => {
     if (user) {
       loggedIn.value = true;
@@ -43,8 +53,20 @@ const handleSignOut = () => {
   })
 };
 
-const handleEditProfile = () => {
-//   TODO: enable to edit profile
+const startProfileEdit = () => {
+  action.value = 'edit';
+}
+
+const handleEditProfile = async (updates) => {
+  await updateDoc(docRef, {
+    displayName: updates.newDisplayName,
+    firstName: updates.newFirstName,
+    lastName: updates.newLastName,
+    age: updates.newAge,
+    photoURL: updates.newPhotoURL
+  })
+  action.value = 'view';
+  console.log('edit complete')
 }
 
 const handleCheckIn = async () => {
@@ -86,22 +108,33 @@ const handleCheckIn = async () => {
         'and the streak has been reset');
   }
 }
+
+
 </script>
 
 <template>
   <navbar></navbar>
-  <account-info v-if="user" :user="user"
-                @handleSignOut="handleSignOut"
-                @handleEditProfile="handleEditProfile"
-                @handleCheckIn="handleCheckIn"
-  ></account-info>
-  <div class="row p-5 justify-content-center ">
+  <div v-if="user">
+    <account-info v-show="action === 'view'" :user="user"
+                  @handleSignOut="handleSignOut"
+                  @startProfileEdit="startProfileEdit"
+                  @handleCheckIn="handleCheckIn"
+    ></account-info>
+
+    <edit-account-info v-show="action === 'edit'" :key="action"
+                       :user="user" :userUID="uid"
+                       @handleEditProfile="handleEditProfile"
+    ></edit-account-info>
+  </div>
+
+  <div v-show="action === 'view'" class="row p-5 justify-content-center ">
     <div class="col col-auto">
-      <button class="btn btn-primary" data-bs-target="#leaderboardModal" data-bs-toggle="modal">View Leaderboard</button>
+      <button class="btn btn-primary" data-bs-target="#leaderboardModal" data-bs-toggle="modal">View Leaderboard
+      </button>
     </div>
   </div>
   <goals-modal v-if="user" :user="user"></goals-modal>
-  <leaderboard v-if="user" :user="user"></leaderboard>
+  <leaderboard v-if="user" :users="leaderboardUsers"></leaderboard>
 </template>
 
 <style scoped>

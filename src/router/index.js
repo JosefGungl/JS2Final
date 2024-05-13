@@ -42,7 +42,7 @@ router.beforeEach(async(to, from, next) => {
     if (await getCurrentUser()) {
       next();
     }else {
-      alert("Hey! How did you get here? you don't have access to this yet, please log in first.");
+      alert("Hey! Hey you! Yeahhh you... How did you get here? you don't have access to this yet, please log in first.");
       next("/");
     }
   }else {

@@ -17,8 +17,8 @@ export default {
         <p>1111 Madison Ave, Hwy 12 <br>Fort Atkinson, Wisconsin 53538 </p>
         <p>Phone: (920)-563-5613</p>
         <p>Email: blackhawkfitness@charter.net</p>
-        <p>Instagram: <a href="https://www.instagram.com/blackhawkfitness/">@blackhawkfitness</a></p>
-        <p>Facebook: <a href="https://www.facebook.com/BlackHawkFitnessClub/">Blackhawk Fitness</a></p>
+        <p>Instagram: <a class="orangeLink" href="https://www.instagram.com/blackhawkfitness/">@blackhawkfitness</a></p>
+        <p>Facebook: <a class="orangeLink" href="https://www.facebook.com/BlackHawkFitnessClub/">Blackhawk Fitness</a></p>
         <br>
         <h3>Current Staffed Hours:</h3>
         <ul>
@@ -45,10 +45,5 @@ export default {
 </template>
 
 <style scoped>
-a{
-  color: blue;
-}
-a:active{
-  color: blue;
-}
+
 </style>

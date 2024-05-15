@@ -48,7 +48,7 @@ const logIn = () => {
       <div class="row"><p v-if="errMsg">{{ errMsg }}</p></div>
       <div class="row"><button class="btn btn-primary gy-2" @click="logIn">Log in</button></div>
       <div class="row justify-content-center">Don't have an account yet?
-        <RouterLink to="/signup">Click here</RouterLink>
+        <RouterLink class="orangeLink" to="/signup">Click here</RouterLink>
       </div>
     </div>
   </div>
@@ -57,7 +57,5 @@ const logIn = () => {
 </template>
 
 <style scoped>
-a, a:hover{
-  color: blue;
-}
+
 </style>

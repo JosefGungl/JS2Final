@@ -56,14 +56,12 @@ const signUp = () => {
       <div class="row"><input class="form-control gy-2 row" type="text" placeholder="Last Name" v-model="lName"/></div>
       <div class="row"><button class="btn btn-primary gy-2" @click="signUp">Sign up</button></div>
       <div class="row justify-content-center">Already have an account?
-        <RouterLink to="/login">Click here</RouterLink>
+        <RouterLink class="orangeLink" to="/login">Click here</RouterLink>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-a, a:hover{
-  color: blue;
-}
+
 </style>

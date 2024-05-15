@@ -25,7 +25,7 @@ const signUp = () => {
           firstName: fName.value,
           lastName: lName.value,
           age: age.value,
-          points: 0,
+          points: 1,
           dailyStreak: 0,
           lastCheckIn: new Date(),
           //photoURL: 'https://placehold.co/250x250'

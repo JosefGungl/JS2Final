@@ -13,7 +13,9 @@ export default {
       lng: coords.value.longitude,
     }))
 
-    const loader = new Loader({ apiKey: googleMapsKey() })
+    const loader = new Loader({ apiKey:
+          'AIzaSyCdbvyOwAs1uMRwYZQ7nFnev5KglbZf6HM'
+    })
     const mapDiv = ref(null)
     let map = ref(null)
     onMounted(async () => {

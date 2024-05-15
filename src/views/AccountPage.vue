@@ -8,8 +8,9 @@ import {db} from "@/main.js";
 
 import leaderboardModal from "@/components/leaderboardModal.vue";
 import AccountInfo from "@/components/accountInfo.vue";
-import GoalsModal from "@/components/goalsModal.vue";
 import EditAccountInfo from "@/components/editAccountInfo.vue";
+import CheckInInfo from "@/components/checkInInfo.vue";
+import PointsInfo from "@/components/pointsInfo.vue";
 
 const router = useRouter();
 const loggedIn = ref(false);
@@ -39,7 +40,6 @@ onMounted(async () => {
   onAuthStateChanged(auth, (user) => {
     loggedIn.value = !!user;
   });
-
 
   const querySnapshot = await getDocs(query(collection(db, "users"), orderBy("points", 'desc'), limit(3)));
   querySnapshot.forEach((doc) => {
@@ -86,8 +86,6 @@ const handleCheckIn = async () => {
           '5 points have been added to your account'
     }
 
-    //TODO: highest streak badge by week
-
     await updateDoc(docRef, {
       lastCheckIn: today,
       dailyStreak: currentStreak + 1,
@@ -123,14 +121,18 @@ const handleCheckIn = async () => {
                        :user="user" :userUID="uid"
                        @handleEditProfile="handleEditProfile"
     ></edit-account-info>
-  </div>
-  <div class="row p-2 text-center">
-    <div class="col">
-      <button class="btn btn-primary" data-bs-target="#leaderboardModal" data-bs-toggle="modal">View Leaderboard</button>
+    <div class="row p-2 text-center">
+      <div class="col">
+        <button class="btn btn-primary" data-bs-target="#leaderboardModal" data-bs-toggle="modal">View Leaderboard
+        </button>
+      </div>
     </div>
   </div>
+
+  <checkInInfo></checkInInfo>
+  <pointsInfo/>
   <leaderboard-modal v-if="isMounted" :leaderboardUsers="leaderboardUsers"/>
-  <goals-modal v-if="user" :user="user"></goals-modal>
+
 </template>
 
 <style scoped>

@@ -1,4 +1,5 @@
 import 'bootstrap/dist/js/bootstrap.js'
+import 'bootstrap-icons/font/bootstrap-icons.css'
 import '@/assets/scss/app.scss'
 import firebaseKey from '@/connections/_firebaseConnection.js'
 import { getFirestore } from 'firebase/firestore'

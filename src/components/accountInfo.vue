@@ -1,12 +1,10 @@
 <script setup>
-
 defineProps(['user']);
 defineEmits([
-    'handleSignOut',
-    'startProfileEdit',
-    'handleCheckIn',
+  'handleSignOut',
+  'startProfileEdit',
+  'handleCheckIn',
 ])
-
 
 </script>
 
@@ -22,7 +20,7 @@ defineEmits([
         <div class="row">
           <div class="row row-cols-2 p-3 text-center" style="position: relative; left: 28px;">
             <div class="col col-auto">
-              <button type="button" class="btn btn-secondary" @click="$emit('handleSignOut')"> Sign Out </button>
+              <button type="button" class="btn btn-secondary" @click="$emit('handleSignOut')"> Sign Out</button>
             </div>
             <div class="col col-auto">
               <button type="button" class="btn btn-secondary" @click="$emit('startProfileEdit')">Edit Profile</button>
@@ -32,44 +30,33 @@ defineEmits([
       </div>
       <div class="col">
         <div class="row h-25 align-content-center">
-          <h3 v-if="user.firstName && user.lastName">{{user.firstName}} {{user.lastName}}</h3>
+          <h3 v-if="user.firstName && user.lastName">{{ user.firstName }} {{ user.lastName }}</h3>
         </div>
         <div class="row h-25 align-content-center">
-          <h5 v-if="user.age">{{user.age}}</h5>
+          <h5 v-if="user.age">{{ user.age }}</h5>
         </div>
         <div class="row h-25 align-content-center">
-          <h5 v-if="user.points">Account Points: {{user.points}}</h5>
+          <h5 v-if="user.points">Account Points: {{ user.points }}
+            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#pointsInfoModal"><i
+                class="bi bi-question-circle"></i></button>
+          </h5>
           <h5 v-else>Account Points: 0</h5>
         </div>
       </div>
       <div class="col col-3 text-end">
         <button class="btn btn-primary" @click="$emit('handleCheckIn')">Check-in</button>
-        <p></p>
-        <button class="btn btn-primary" data-bs-target="#goalsModal" data-bs-toggle="modal">Goals and Progress</button>
+        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#checkInInfoModal"><i
+            class="bi bi-question-circle"></i></button>
       </div>
     </div>
-    <div class="row border">
-      <div class="col text-center">
-        <h2>Badges</h2>
-        <div class="row">
-<!--          TODO: Add badges cards here-->
-          <div></div>
-          <div v-if="user.badges" v-for="i in user.badges" class="card">
-            <div v-if="user.badges[i].title" class="card-header">{{user.badges[i].title}}</div>
-            <div v-if="user.badges[i].photoURL" class="card-body"><img class="badgeImg" :src="user.badges[i].photoURL" alt="Badge Image"></div>
-          </div>
-        </div>
-      </div>
+    <div class="row">
       <div class="col text-center">
         <h2>Streaks</h2>
         <div class="row">
-<!--          TODO: Add streaks cards here-->
-          <div v-if="user.dailyStreak">Current Check-in streak: {{user.dailyStreak}}</div>
+          <div v-if="user.dailyStreak">Current Check-in streak: {{ user.dailyStreak }}</div>
         </div>
       </div>
     </div>
-
-
   </div>
 
 </template>

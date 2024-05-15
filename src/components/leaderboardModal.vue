@@ -1,8 +1,7 @@
 <script setup>
-import LeaderboardUser from "@/components/leaderboardUser.vue";
-let props = defineProps(['leaderboardUsers']);
 
-console.log(props.leaderboardUsers)
+defineProps(['leaderboardUsers']);
+
 </script>
 
 <template>
@@ -16,11 +15,12 @@ console.log(props.leaderboardUsers)
         </div>
         <div class="modal-body">
           <div class="row row-cols-2">
-            <div class="col">Name</div>
-            <div class="col">Points</div>
+            <div class="col">Name: </div>
+            <div class="col">Points: </div>
           </div>
-          <div v-for="user in leaderboardUsers">
-            <leaderboard-user :user="user"></leaderboard-user>
+          <div class="row" v-for="user in leaderboardUsers">
+            <div class="col">{{ user.displayName }}</div>
+            <div class="col">{{ user.points }}</div>
           </div>
         </div>
         <div class="modal-footer">
@@ -29,7 +29,6 @@ console.log(props.leaderboardUsers)
       </div>
     </div>
   </div>
-
 
 </template>
 

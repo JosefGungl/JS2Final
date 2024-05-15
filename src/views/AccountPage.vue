@@ -1,13 +1,14 @@
 <script setup>
 import Navbar from "@/components/navbar.vue";
-import { onMounted, ref } from "vue";
+import {onMounted, ref} from "vue";
 import {getAuth, onAuthStateChanged, signOut} from "firebase/auth";
 import {useRouter} from "vue-router";
-import {doc, getDoc, onSnapshot, updateDoc, query, collection, limit, getDocs} from 'firebase/firestore';
+import {doc, getDoc, onSnapshot, updateDoc, query, collection, limit, orderBy, getDocs} from 'firebase/firestore';
 import {db} from "@/main.js";
+
+import leaderboardModal from "@/components/leaderboardModal.vue";
 import AccountInfo from "@/components/accountInfo.vue";
 import GoalsModal from "@/components/goalsModal.vue";
-import Leaderboard from "@/components/leaderboard.vue";
 import EditAccountInfo from "@/components/editAccountInfo.vue";
 
 const router = useRouter();
@@ -16,36 +17,35 @@ const loggedIn = ref(false);
 let user = ref();
 let auth;
 let docRef;
-let leaderboardUsers = [];
 let action = ref('view')
 let uid;
-
+let isMounted = false;
+let leaderboardUsers = ref([]);
 
 onMounted(async () => {
+  isMounted = true;
   auth = getAuth();
   uid = auth.currentUser.uid;
   docRef = doc(db, 'users', uid);
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
+
     onSnapshot(docRef, (doc) => {
       user.value = {...doc.data()};
     });
   } else {
     console.log("No document exists");
   }
-  //leaderboard
-  const querySnapshot = await getDocs(query(collection(db, "users"), limit(3)));
-  querySnapshot.forEach((doc) => {
-    leaderboardUsers.push({...doc.data()});
-  })
-  console.log(leaderboardUsers)
   onAuthStateChanged(auth, (user) => {
-    if (user) {
-      loggedIn.value = true;
-    } else {
-      loggedIn.value = false;
-    }
+    loggedIn.value = !!user;
   });
+
+
+  const querySnapshot = await getDocs(query(collection(db, "users"), orderBy("points", 'desc'), limit(3)));
+  querySnapshot.forEach((doc) => {
+    leaderboardUsers.value.push({...doc.data()});
+  })
+  isMounted = true;
 })
 const handleSignOut = () => {
   signOut(auth).then(() => {
@@ -109,7 +109,6 @@ const handleCheckIn = async () => {
   }
 }
 
-
 </script>
 
 <template>
@@ -120,21 +119,18 @@ const handleCheckIn = async () => {
                   @startProfileEdit="startProfileEdit"
                   @handleCheckIn="handleCheckIn"
     ></account-info>
-
     <edit-account-info v-show="action === 'edit'" :key="action"
                        :user="user" :userUID="uid"
                        @handleEditProfile="handleEditProfile"
     ></edit-account-info>
   </div>
-
-  <div v-show="action === 'view'" class="row p-5 justify-content-center ">
-    <div class="col col-auto">
-      <button class="btn btn-primary" data-bs-target="#leaderboardModal" data-bs-toggle="modal">View Leaderboard
-      </button>
+  <div class="row p-2 text-center">
+    <div class="col">
+      <button class="btn btn-primary" data-bs-target="#leaderboardModal" data-bs-toggle="modal">View Leaderboard</button>
     </div>
   </div>
+  <leaderboard-modal v-if="isMounted" :leaderboardUsers="leaderboardUsers"/>
   <goals-modal v-if="user" :user="user"></goals-modal>
-  <leaderboard v-if="user" :users="leaderboardUsers"></leaderboard>
 </template>
 
 <style scoped>
